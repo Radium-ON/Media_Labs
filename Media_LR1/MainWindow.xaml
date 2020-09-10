@@ -1,0 +1,48 @@
+﻿<Window x:Class="Media_LR1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Media_LR1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="Grid1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="Grid2" Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="511"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="C:\Users\ia_no\Source\Repos\Media_LR1\Media_LR1\Elements\logo_stu.png" SnapsToDevicePixels="True"/>
+            <Image Grid.Column="1" Stretch="Fill" Source="C:\Users\ia_no\Source\Repos\Media_LR1\Media_LR1\Elements\stretch_img.png" SnapsToDevicePixels="True"/>
+        </Grid>
+        <GridSplitter Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="10" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"/>
+        <ScrollViewer Grid.Row="1" >
+            <TextBlock TextWrapping="Wrap" Margin="10,10,0,10"><Run Text="Сибирский государственный университет путей сообщения – один из ведущих технических вузов России в транспортной отрасли. Возникший как путейско-строительный институт инженеров железнодорожного транспорта, за свою 80-летнюю историю прошел долгий путь становления и развития и превратился в крупнейший образовательный комплекс Сибири, заняв лидирующие позиции в отрасли."/><LineBreak/><Run/><LineBreak/><Run Text="Занимаясь подготовкой и переподготовкой высококвалифицированных специалистов, разработкой наукоемких технологий, университет всегда способствовал прогрессивным изменениям в области транспорта и транспортного строительства, а достижения коллектива университета хорошо известны как в стране, так и за ее пределами."/><LineBreak/><Run/><LineBreak/><Run Text="За последние годы возросла международная известность университета: к нам приезжают учиться студенты и стажеры из европейских и азиатских стран. Особенно высок авторитет вуза в странах Восточной Азии: Республике Корее, Монголии, Китайской Народной Республике, Корейской Народно-Демократической Республике и Японии."/><LineBreak/><Run/><LineBreak/><Run Text="На сегодняшний день в Сибирском государственном университете путей сообщения созданы все условия для подготовки квалифицированных специалистов в области железнодорожного транспорта, транспортного строительства, экономики, менеджмента, сервиса, транспортного права, информационных технологий."/><LineBreak/><Run/><LineBreak/><Run Text="В состав университета входит Институт перспективных транспортных технологий и переподготовки кадров, Новосибирский техникум железнодорожного транспорта. Университет имеет 3 филиала: в Томске, Новоалтайске, Белово."/></TextBlock>
+        </ScrollViewer>
+
+        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/fbi.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/ief.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/meip.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/mt.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/pgs.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/sjd.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/up.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/upp.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/up.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/uttk.png"/>
+            <Image HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Margin="5,5,5,5" Source="/Logos/zf.png"/>
+
+        </WrapPanel>
+
+    </Grid>
+</Window>

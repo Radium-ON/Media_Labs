@@ -1,0 +1,126 @@
+﻿<Page
+    x:Class="Media_LR3_UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Media_LR3_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:models="using:Media_LR3_UWP.Models"
+    xmlns:converters="using:Media_LR3_UWP.Converters"
+    mc:Ignorable="d" Loaded="MainPage_OnLoaded">
+    <Page.Resources>
+        <converters:StringToImageSourceConverter x:Key="image_source_converter"/>
+
+        <DataTemplate x:Key="FolderTemplate"
+                      x:DataType="local:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}"
+                               ItemsSource="{x:Bind Children}" IsExpanded="True">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="../Assets/icons8-folder.svg"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FileTemplate"
+                      x:DataType="local:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="../Assets/file.png"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}"/>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Name="image_overlay_template" x:DataType="models:ImageModel">
+            <Grid Width="200">
+                <Image Source="{Binding ImageLocation}" Stretch="UniformToFill" Width="200" Height="130"/>
+                <StackPanel Orientation="Vertical" Height="40" VerticalAlignment="Bottom" Padding="5,1,5,1"
+                            Background="LightGray" Opacity=".75">
+                    <TextBlock Text="{x:Bind Title}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Снято" Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                        <TextBlock Text="{x:Bind CreateDate}" Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <local:ExplorerItemTemplateSelector 
+            x:Key="ExplorerItemTemplateSelector"
+            FolderTemplate="{StaticResource FolderTemplate}"
+            FileTemplate="{StaticResource FileTemplate}" />
+
+        <AcrylicBrush x:Key="CustomAcrylicInAppLuminosity" BackgroundSource="Backdrop"
+                            TintOpacity="0.609999986365438" TintLuminosityOpacity="0.379999991506338" TintColor="SkyBlue" FallbackColor="SkyBlue" />
+    </Page.Resources>
+
+    <Grid x:Name="grid_root" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="grid_top" Grid.ColumnSpan="3" Background="{ThemeResource CustomAcrylicInAppLuminosity}">
+            <AutoSuggestBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" QueryIcon="Find"/>
+        </Grid>
+
+        <Grid x:Name="grid_bottom" Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Background="{ThemeResource CustomAcrylicInAppLuminosity}"/>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0">
+            <StackPanel>
+                <TreeView x:Name="sampleTreeView" MinWidth="345" MaxHeight="400" Margin="0,12,0,0" ItemsSource="{x:Bind DataSource}"
+                          ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"
+                          VerticalAlignment="Top" ItemInvoked="sampleTreeView_ItemInvoked" CanDragItems="True" AllowDrop="True" />
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <GridView Grid.Row="1" Grid.Column="1" x:Name="styled_grid" ItemsSource="{x:Bind ImageSources}">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding}" Stretch="UniformToFill" Width="200" Height="130"/>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="5,5,5,5"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid x:Name="MaxItemsWrapGrid"
+                                   MaximumRowsOrColumns="4"
+                                   Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+
+
+        <controls:GridSplitter x:Name="splitter_left" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1"/>
+        <controls:GridSplitter x:Name="splitter_right" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" ResizeBehavior="PreviousAndCurrent"/>
+
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <Image Source="{Binding ElementName=styled_grid, Path=SelectedItem.ImageLocation}" Stretch="UniformToFill"/>
+            <TextBlock Text="{Binding ElementName=styled_grid,Path=SelectedItem.Title}"/>
+            <TextBlock Text="{Binding ElementName=styled_grid,Path=SelectedItem.Resolution}"/>
+            <TextBlock Text="{Binding ElementName=styled_grid,Path=SelectedItem.ShotDate}"/>
+            <TextBlock Text="{Binding ElementName=styled_grid,Path=SelectedItem.CreateDate}"/>
+        </StackPanel>
+
+    </Grid>
+</Page>
